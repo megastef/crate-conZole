@@ -137,7 +137,7 @@
     },
 
     "font"          : { "$Font" : ["Arial", 14] },
-    "boldFont"      : { "$Font" : ["Arial", "bold", 12] },
+    "boldFont"      : { "$Font" : ["Arial", "bold", 14] },
     "smallFont"     : { "$Font" : ["Arial", 10] },
 
     "palette": {
@@ -755,7 +755,7 @@
 
             "padding" : 4,
             "font"     : "@boldFont",
-            "fontColor": "rgb(65, 131, 215)"
+            "fontColor": "steelblue"
         },
 
         "Grid": {

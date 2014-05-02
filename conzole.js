@@ -2,12 +2,16 @@ var createApp = function ()  {
 
     var crate = require('node-crate');
     crate.connect (window.location.host, window.location.port);
-
+    var font = new zebra.ui.Font("Helvetica", "bold", 16);
     var txt = new zebra.ui.TextField("select  * from tweets limit 500").properties ({
         preferredSize: [890,150],
         //background: new zebra.ui.Gradient("#EEEEEE", "white"),
-        color: 'steelblue'
+        borderColor: 'grey',
+
+        font:  font
+
     });
+    txt.setBackground(new zebra.ui.Gradient( "#EEEEEE", 'white'))
 
     var history = ['select  * from tweets limit 500']
     var historyCombo = new zebra.ui.Combo(history);
@@ -21,11 +25,15 @@ var createApp = function ()  {
 
 
     var run = new zebra.ui.Button ('Run');
-    var grid = new zebra.ui.grid.Grid( [['                ']]);
+    var grid = new zebra.ui.grid.Grid( [[' Press run to execute query ']]).properties ({
+        lineColor: '#DDDDDD'
+    });
     //grid.setPreferredSize ([890,200])
     grid.setUsePsMetric(true);
-    grid.setCellPadding(10);
-    var errTxt =  new zebra.ui.TextArea(" - status -");
+    //grid.setCellPadding(10);
+    var errTxt =  new zebra.ui.TextArea(" - status -").properties ({
+        font: font
+    });
 
     var scrollPan = new zebra.ui.ScrollPan (grid);
 
@@ -36,6 +44,10 @@ var createApp = function ()  {
                 TOP:  new zebra.ui.Panel().properties( {
                         layout: new zebra.layout.BorderLayout(8),
                         kids: {
+                            TOP: new zebra.ui.Label (" conZole / " + window.location.host + " _").properties ({
+                                font: new zebra.ui.Font("2em Futura, Helvetica, sans-serif"),
+                                color: "steelblue"
+                            }),
                             CENTER: txt,
                             BOTTOM: new zebra.ui.Panel().properties ({
                                             layout: new zebra.layout.BorderLayout(8),
@@ -52,21 +64,26 @@ var createApp = function ()  {
 
     function updateUI (gridModel, headerModel, status, statusColor, historyEntry)
     {
+        scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
+
         grid.removeAll()
         grid.setModel([])
-
+        grid.setVisible(true)
+        grid.setUsePsMetric(true);
         var header = new zebra.ui.grid.GridCaption(headerModel).properties ({
             isAutoFit: true,
             istResizeable: true,
-            isSortable: true
+            font: font,
+            color: 'grey'
         });
 
-        //header.setSortable (1,true)
-        grid.add(zebra.layout.TOP, header);
+        //header.setSortable (0,true)
+        //grid.add(zebra.layout.TOP, header);
         grid.setModel (gridModel)
+        grid.setCellPadding(4)
         grid.add(zebra.layout.TOP, header)
         scrollPan.add (zebra.layout.CENTER, grid);
-        grid.setUsePsMetric(true);
+
         grid.invalidate()
         errTxt.setValue (status)
         errTxt.setColor(statusColor)
@@ -81,8 +98,11 @@ var createApp = function ()  {
         }
         grid.invalidateLayout()
         scrollPan.invalidateLayout()
+
     }
      run.mousePressed=function (e) {
+         scrollPan.setBackground(new zebra.ui.Gradient("#DDDDDD", "white"))
+         //grid.setVisible(false);
          crate.execute ( txt.getValue().toString() )
             .success(function (res) {
                  var rows = res.rows;
@@ -101,6 +121,7 @@ var createApp = function ()  {
                            res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols||''),
                            "steelblue",
                            txt.getValue().toString() )
+
 
             })
             .error (function (err) {
