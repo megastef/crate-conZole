@@ -71,7 +71,7 @@ var createApp = function () {
         grid.setModel([])
         grid.setVisible(true)
         grid.setUsePsMetric(true);
-        var header = new zebra.ui.grid.GridCaption(headerModel).properties({
+        var header = new zebra.ui.grid.CompGridCaption(headerModel).properties({
             isAutoFit: true,
             istResizeable: true,
             font: font,
