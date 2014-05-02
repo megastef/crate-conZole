@@ -2,7 +2,7 @@ var createApp = function () {
 
     var crate = require('node-crate');
     crate.connect(window.location.host, window.location.port);
-    var font = new zebra.ui.Font("Helvetica", "bold", 16);
+    var font = new zebra.ui.Font("Courier", "bold", 12);
     var txt = new zebra.ui.TextField("select  * from tweets limit 500").properties({
         preferredSize: [890, 150],
         //background: new zebra.ui.Gradient("#EEEEEE", "white"),
