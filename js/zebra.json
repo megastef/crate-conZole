@@ -137,7 +137,7 @@
     },
 
     "font"          : { "$Font" : ["Arial", 14] },
-    "boldFont"      : { "$Font" : ["Arial", "bold", 14] },
+    "boldFont"      : { "$Font" : ["Arial", "bold", 12] },
     "smallFont"     : { "$Font" : ["Arial", 10] },
 
     "palette": {
