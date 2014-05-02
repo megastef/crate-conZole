@@ -3,7 +3,7 @@ var createApp = function ()  {
     var crate = require('node-crate');
     crate.connect (window.location.host, window.location.port);
 
-    var txt = new zebra.ui.TextArea("select  * from tweets limit 500").properties ({
+    var txt = new zebra.ui.TextField("select  * from tweets limit 500").properties ({
         preferredSize: [890,150],
         //background: new zebra.ui.Gradient("#EEEEEE", "white"),
         color: 'steelblue'
@@ -30,15 +30,15 @@ var createApp = function ()  {
     var scrollPan = new zebra.ui.ScrollPan (grid);
 
     var gui = new zebra.ui.Panel().properties ({
-            padding: 4,
-            layout : new zebra.layout.BorderLayout(8),
+            padding: 0,
+            layout : new zebra.layout.BorderLayout(0),
             kids   : {
                 TOP:  new zebra.ui.Panel().properties( {
-                        layout: new zebra.layout.BorderLayout(16),
+                        layout: new zebra.layout.BorderLayout(0),
                         kids: {
                             CENTER: txt,
                             BOTTOM: new zebra.ui.Panel().properties ({
-                                            layout: new zebra.layout.BorderLayout(8),
+                                            layout: new zebra.layout.BorderLayout(0),
                                             kids: {
                                                 CENTER: historyCombo,
                                                 RIGHT: run
@@ -117,7 +117,7 @@ zebra.ready(function() {
     // create canvas 400x700 pixels
     //var app = require ('./conzole.js')
     var canvas = new zebra.ui.zCanvas("myCanvas");
-    canvas.root.setLayout(new zebra.layout.BorderLayout(18))
+    canvas.root.setLayout(new zebra.layout.BorderLayout(2))
     canvas.root.add (zebra.layout.CENTER, createApp())
     //run.mousePressed()
 });
