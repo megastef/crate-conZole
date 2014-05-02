@@ -5,7 +5,7 @@ var createApp = function ()  {
 
     var txt = new zebra.ui.TextArea("select  * from tweets limit 500").properties ({
         preferredSize: [890,150],
-        background: new zebra.ui.Gradient("#EEEEEE", "white"),
+        //background: new zebra.ui.Gradient("#EEEEEE", "white"),
         color: 'steelblue'
     });
 
@@ -25,16 +25,16 @@ var createApp = function ()  {
     //grid.setPreferredSize ([890,200])
     grid.setUsePsMetric(true);
     grid.setCellPadding(10);
-    var errTxt =  new zebra.ui.Label(" - status -");
+    var errTxt =  new zebra.ui.TextArea(" - status -");
 
     var scrollPan = new zebra.ui.ScrollPan (grid);
 
     var gui = new zebra.ui.Panel().properties ({
-            padding: 2,
+            padding: 4,
             layout : new zebra.layout.BorderLayout(8),
             kids   : {
                 TOP:  new zebra.ui.Panel().properties( {
-                        layout: new zebra.layout.BorderLayout(4),
+                        layout: new zebra.layout.BorderLayout(16),
                         kids: {
                             CENTER: txt,
                             BOTTOM: new zebra.ui.Panel().properties ({
@@ -108,6 +108,7 @@ var createApp = function ()  {
             })
 
      }
+    run.mousePressed()
     return gui;
 
 }
@@ -118,4 +119,5 @@ zebra.ready(function() {
     var canvas = new zebra.ui.zCanvas("myCanvas");
     canvas.root.setLayout(new zebra.layout.BorderLayout(18))
     canvas.root.add (zebra.layout.CENTER, createApp())
+    //run.mousePressed()
 });
