@@ -8,20 +8,16 @@ An alternative SQL console for crate-data - made for interactive testing of [nod
 
 
 ## How to use
-Git clone the file and link or copy it to CRATE_INSTALL_DIR/plugins/conzole/_site
+Change directory to your CRATE install dir
 
 ```
-git clone https://github.com/megastef/crate-conZole.git
-cd crate-conzole
-export CRATE_DIR=~/crate-0.31.0
-mkdir  $CRATE_DIR/plugins/conzole
-ln -s . $CRATE_DIR/plugins/conzole/_site
+bin/plugin install  megastef/crate-conZole
 ```
 
-Now you can access it with
+Now you can access it in your browser (pls. note the textfield might behave strange on Safari, best results with Firefox and Chrome)
 
 ```
-http://localhost:4200/_plugin/conzole/index.html
+http://localhost:4200/_plugin/crate-conZole/
 ```
 
 
