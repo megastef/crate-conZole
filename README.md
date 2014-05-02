@@ -21,5 +21,5 @@ http://localhost:4200/_plugin/crate-conZole/
 ```
 
 
-A special thank to [Zebra UI](http://www.zebkit.com/) - Java UI programmers feel like home, when creating javascript UI in HTML5 canvas.
+Special thanks to [Zebra UI](http://www.zebkit.com/) - Java UI programmers feel like home, when creating javascript UI in HTML5 canvas.
 No DOM manipulation, CSS stress ...
