@@ -31,14 +31,14 @@ var createApp = function ()  {
 
     var gui = new zebra.ui.Panel().properties ({
             padding: 0,
-            layout : new zebra.layout.BorderLayout(0),
+            layout : new zebra.layout.BorderLayout(8),
             kids   : {
                 TOP:  new zebra.ui.Panel().properties( {
-                        layout: new zebra.layout.BorderLayout(0),
+                        layout: new zebra.layout.BorderLayout(8),
                         kids: {
                             CENTER: txt,
                             BOTTOM: new zebra.ui.Panel().properties ({
-                                            layout: new zebra.layout.BorderLayout(0),
+                                            layout: new zebra.layout.BorderLayout(8),
                                             kids: {
                                                 CENTER: historyCombo,
                                                 RIGHT: run
