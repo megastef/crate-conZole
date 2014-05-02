@@ -341,7 +341,7 @@
             "view": {
                 "pressed.over" : { "$zebra.ui.ArrowView": [ 2, "gray" ] },
                 "out"          : { "$zebra.ui.ArrowView": [ 2 ] },
-                "over"         : { "$zebra.ui.ArrowView": [ 2, "red" ] },
+                "over"         : { "$zebra.ui.ArrowView": [ 2, "steelblue" ] },
                 "disabled"     : { "$zebra.ui.ArrowView": [ 2, "white" ] }
             },
             "preferredSize":[ 16, 11 ],
@@ -352,7 +352,7 @@
             "view": {
                 "pressed.over" : { "$zebra.ui.ArrowView": [ 1, "gray" ] },
                 "out"     : { "$zebra.ui.ArrowView": [ 1 ] },
-                "over"    : { "$zebra.ui.ArrowView": [ 1, "red" ] },
+                "over"    : { "$zebra.ui.ArrowView": [ 1, "steelblue" ] },
                 "disabled": { "$zebra.ui.ArrowView": [ 1, "white" ] }
             },
             "preferredSize":[ 16, 11 ],
@@ -363,7 +363,7 @@
             "view": {
                 "pressed.over" : { "$zebra.ui.ArrowView": [8, "gray"] },
                 "out"     : { "$zebra.ui.ArrowView": [8] },
-                "over"    : { "$zebra.ui.ArrowView": [8, "red"] },
+                "over"    : { "$zebra.ui.ArrowView": [8, "steelblue"] },
                 "disabled": { "$zebra.ui.ArrowView": [8, "white"] }
             },
 
@@ -375,7 +375,7 @@
             "view": {
                 "pressed.over" : { "$zebra.ui.ArrowView": [ 4, "gray" ] },
                 "out"     : { "$zebra.ui.ArrowView": [ 4 ] },
-                "over"    : { "$zebra.ui.ArrowView": [ 4, "red" ] },
+                "over"    : { "$zebra.ui.ArrowView": [ 4, "steelblue" ] },
                 "disabled": { "$zebra.ui.ArrowView": [ 4, "white" ] }
             },
 
