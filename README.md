@@ -3,6 +3,10 @@ crate-conZole
 
 An alternative SQL console for crate-data - made for interactive testing of [node-crate driver](https://github.com/megastef/node-crate)
 
+
+![](http://i57.tinypic.com/2j8kmq.png )
+
+
 ## How to use
 Git clone the file and link or copy it to CRATE_INSTALL_DIR/plugins/conzole/_site
 
