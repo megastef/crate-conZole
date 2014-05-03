@@ -28,8 +28,8 @@ var createApp = function () {
     var grid = new zebra.ui.grid.Grid([
         [' Press run to execute query ']
     ]).properties({
-        lineColor: '#DDDDDD'
-    });
+            lineColor: '#DDDDDD'
+        });
     //grid.setPreferredSize ([890,200])
     grid.setUsePsMetric(true);
     //grid.setCellPadding(10);
@@ -68,53 +68,53 @@ var createApp = function () {
         try {
 
 
-        scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
+            scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
 
-        grid.removeAll()
-        grid.setModel([])
-        //grid.setVisible(true)
-        grid.setUsePsMetric(false);
-        var header = new zebra.ui.grid.CompGridCaption(headerModel).properties({
-            isAutoFit: true,
-            istResizeable: true,
-            font: font,
-            color: 'grey'
-        });
-        grid.setModel(gridModel)
-        grid.setCellPadding(4)
-        var tw = 0;
-        for (var i=0;i<headerModel.length; i++) {
-            header.setSortable (i, true)
-            var w = Math.min ( grid.getColPSWidth (i)*2, 160);
+            grid.removeAll()
+            grid.setModel([])
+            //grid.setVisible(true)
+            grid.setUsePsMetric(false);
+            var header = new zebra.ui.grid.CompGridCaption(headerModel).properties({
+                isAutoFit: true,
+                istResizeable: true,
+                font: font,
+                color: 'grey'
+            });
+            grid.setModel(gridModel)
+            grid.setCellPadding(4)
+            var tw = 0;
+            for (var i = 0; i < headerModel.length; i++) {
+                header.setSortable(i, true)
+                var w = Math.min(grid.getColPSWidth(i) * 2, 160);
 
-            grid.setColWidth (i, w);
-            if (i === headerModel.length-1 && tw < scrollPan.width) {
-                grid.setColWidth (i, scrollPan.width - tw)
+                grid.setColWidth(i, w);
+                if (i === headerModel.length - 1 && tw < scrollPan.width) {
+                    grid.setColWidth(i, scrollPan.width - tw)
+                }
+                tw = tw + w;
             }
-            tw = tw + w;
-        }
 
-        grid.add(zebra.layout.TOP, header)
-        scrollPan.add(zebra.layout.CENTER, grid);
+            grid.add(zebra.layout.TOP, header)
+            scrollPan.add(zebra.layout.CENTER, grid);
 
 
-        errTxt.setValue(status)
-        errTxt.setColor(statusColor)
-        if (historyEntry) {
-            if (history.length > 15)
-                history.shift();
-            history.push(txt.getValue().toString());
-            var l = new zebra.ui.CompList(history)
-            l.select(history.length - 1)
-            historyCombo.setList(l);
-            //console.log (txt.getValue().toString()) ;
-        }
-        grid.invalidateLayout()
-            if (gridModel && gridModel.length>0)
-                grid.setRowsHeight (grid.getRowPSHeight(0))
-        //scrollPan.invalidateLayout()
+            errTxt.setValue(status)
+            errTxt.setColor(statusColor)
+            if (historyEntry) {
+                if (history.length > 15)
+                    history.shift();
+                history.push(txt.getValue().toString());
+                var l = new zebra.ui.CompList(history)
+                l.select(history.length - 1)
+                historyCombo.setList(l);
+                //console.log (txt.getValue().toString()) ;
+            }
+            grid.invalidateLayout()
+            if (gridModel && gridModel.length > 0)
+                grid.setRowsHeight(grid.getRowPSHeight(0))
+            //scrollPan.invalidateLayout()
         } catch (ex) {
-            window.alert (ex)
+            window.alert(ex)
         }
 
     }
@@ -123,39 +123,41 @@ var createApp = function () {
         scrollPan.setBackground(new zebra.ui.Gradient("#DDDDDD", "#FFFFFF"))
         //grid.setVisible(false);
 
-            crate.execute(txt.getValue().toString())
-                .success(function (res) {
-                    if (res.rowcount==0)
-                    {
-                        //return;
-                        updateUI([['no results: ' + res.rowcount]], [' '],
-                                res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
-                            "steelblue",
-                            txt.getValue().toString())
-                          return;
-                    }
-                    var rows = res.rows || [];
-                    if (res.rows && res.rows.length>0) {
-                        rows = res.rows.map(function (e, i) {
-                            return e.map(function (x, i) {
-                                if (('' + x).search(/object/i) > -1)
-                                    return JSON.stringify(x)
-                                else
-                                    return x;
-                            });
-                        })
-                    }
-                    updateUI(rows || [[res.rowcount]], res.cols || ['count'],
+        crate.execute(txt.getValue().toString())
+            .success(function (res) {
+                if (res.rowcount == 0) {
+                    //return;
+                    updateUI([
+                            ['no results: ' + res.rowcount]
+                        ], [' '],
                             res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
                         "steelblue",
                         txt.getValue().toString())
-                })
-                .error(function (err) {
-                    updateUI([
-                        [err.message, err.code]
-                    ], ["Error", "Code"], err.message, "darkred", null)
-                })
-
+                    return;
+                }
+                var rows = res.rows || [];
+                if (res.rows && res.rows.length > 0) {
+                    rows = res.rows.map(function (e, i) {
+                        return e.map(function (x, i) {
+                            if (('' + x).search(/object/i) > -1)
+                                return JSON.stringify(x)
+                            else
+                                return x;
+                        });
+                    })
+                }
+                updateUI(rows || [
+                        [res.rowcount]
+                    ], res.cols || ['count'],
+                        res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
+                    "steelblue",
+                    txt.getValue().toString())
+            })
+            .error(function (err) {
+                updateUI([
+                    [err.message, err.code]
+                ], ["Error", "Code"], err.message, "darkred", null)
+            })
 
 
     }
