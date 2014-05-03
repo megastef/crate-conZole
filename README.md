@@ -4,7 +4,7 @@ crate-conZole
 An alternative SQL console for crate-data - made for interactive testing of [node-crate driver](https://github.com/megastef/node-crate)
 
 
-![](http://i57.tinypic.com/2j8kmq.png )
+![](http://i57.tinypic.com/1zof9g2.png)
 
 
 ## How to use
@@ -20,6 +20,4 @@ Now you can access it in your browser (pls. note the textfield might behave stra
 http://localhost:4200/_plugin/crate-conZole/
 ```
 
-
-Special thanks to [Zebra UI](http://www.zebkit.com/) - Java UI programmers feel like home, when creating javascript UI in HTML5 canvas.
-No DOM manipulation, CSS stress ...
+Special thanks to [Zebra UI](http://www.zebkit.com/) - Java UI programmers feel like home, when creating javascript UI in HTML5 canvas.No DOM manipulation, CSS stress ...
