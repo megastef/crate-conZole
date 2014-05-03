@@ -734,9 +734,9 @@
 
             "StatusPan": {
                 "view" : {
-                    "*"       : { "$zebra.ui.ArrowView" : [ "left", "rgb(255, 153, 0)" ], "width":9, "height":9  },
-                    "ascent"  : { "$zebra.ui.ArrowView" : [ "top", "rgb(255, 153, 0)"  ]   },
-                    "descent" : { "$zebra.ui.ArrowView" : [ "bottom", "rgb(255, 153, 0)" ] }
+                    "*"       : { "$zebra.ui.ArrowView" : [ "left", "steelblue" ], "width":9, "height":9  },
+                    "ascent"  : { "$zebra.ui.ArrowView" : [ "top", "steelblue"  ]   },
+                    "descent" : { "$zebra.ui.ArrowView" : [ "bottom", "steelblue" ] }
                 }
             },
 
@@ -746,7 +746,7 @@
 
             "Link": {
                 "font"  : "bold 14px 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
-                "colors": [ "orange", "red", "black", "blue", "gray" ]
+                "colors": [ "steelblue", "orange", "black", "blue", "gray" ]
             }
         },
 

@@ -2,7 +2,7 @@ var createApp = function () {
 
     var crate = require('node-crate');
     crate.connect(window.location.host, window.location.port);
-    var font = new zebra.ui.Font("Arial", "bold", 14);
+    var font = new zebra.ui.Font("Arial", "bold", 18);
     var txt = new zebra.ui.TextField("select  * from tweets limit 500").properties({
         preferredSize: [890, 150],
         //background: new zebra.ui.Gradient("#EEEEEE", "white"),
@@ -65,27 +65,39 @@ var createApp = function () {
         }})
 
     function updateUI(gridModel, headerModel, status, statusColor, historyEntry) {
+        try {
+
+
         scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
 
         grid.removeAll()
         grid.setModel([])
-        grid.setVisible(true)
-        grid.setUsePsMetric(true);
+        //grid.setVisible(true)
+        grid.setUsePsMetric(false);
         var header = new zebra.ui.grid.CompGridCaption(headerModel).properties({
             isAutoFit: true,
             istResizeable: true,
             font: font,
             color: 'grey'
         });
-
-        //header.setSortable (0,true)
-        //grid.add(zebra.layout.TOP, header);
         grid.setModel(gridModel)
         grid.setCellPadding(4)
+        var tw = 0;
+        for (var i=0;i<headerModel.length; i++) {
+            header.setSortable (i, true)
+            var w = Math.min ( grid.getColPSWidth (i)*2, 160);
+
+            grid.setColWidth (i, w);
+            if (i === headerModel.length-1 && tw < scrollPan.width) {
+                grid.setColWidth (i, scrollPan.width - tw)
+            }
+            tw = tw + w;
+        }
+
         grid.add(zebra.layout.TOP, header)
         scrollPan.add(zebra.layout.CENTER, grid);
 
-        grid.invalidate()
+
         errTxt.setValue(status)
         errTxt.setColor(statusColor)
         if (historyEntry) {
@@ -98,36 +110,53 @@ var createApp = function () {
             //console.log (txt.getValue().toString()) ;
         }
         grid.invalidateLayout()
-        scrollPan.invalidateLayout()
+            if (gridModel && gridModel.length>0)
+                grid.setRowsHeight (grid.getRowPSHeight(0))
+        //scrollPan.invalidateLayout()
+        } catch (ex) {
+            window.alert (ex)
+        }
 
     }
 
     run.mousePressed = function (e) {
-        scrollPan.setBackground(new zebra.ui.Gradient("#DDDDDD", "white"))
+        scrollPan.setBackground(new zebra.ui.Gradient("#DDDDDD", "#FFFFFF"))
         //grid.setVisible(false);
-        crate.execute(txt.getValue().toString())
-            .success(function (res) {
-                var rows = res.rows;
-                if (res.rows) {
-                    rows = res.rows.map(function (e, i) {
-                        return e.map(function (x, i) {
-                            if (('' + x).search(/object/i) > -1)
-                                return JSON.stringify(x)
-                            else
-                                return x;
-                        });
-                    })
-                }
-                updateUI(rows || [res.rowcount], res.cols || [],
-                        res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
-                    "steelblue",
-                    txt.getValue().toString())
-            })
-            .error(function (err) {
-            updateUI([
-                [err.message, err.code]
-            ], ["Error", "Code"], err.message, "darkred", null)
-        })
+
+            crate.execute(txt.getValue().toString())
+                .success(function (res) {
+                    if (res.rowcount==0)
+                    {
+                        //return;
+                        updateUI([['no results: ' + res.rowcount]], [' '],
+                                res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
+                            "steelblue",
+                            txt.getValue().toString())
+                          return;
+                    }
+                    var rows = res.rows || [];
+                    if (res.rows && res.rows.length>0) {
+                        rows = res.rows.map(function (e, i) {
+                            return e.map(function (x, i) {
+                                if (('' + x).search(/object/i) > -1)
+                                    return JSON.stringify(x)
+                                else
+                                    return x;
+                            });
+                        })
+                    }
+                    updateUI(rows || [[res.rowcount]], res.cols || ['count'],
+                            res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
+                        "steelblue",
+                        txt.getValue().toString())
+                })
+                .error(function (err) {
+                    updateUI([
+                        [err.message, err.code]
+                    ], ["Error", "Code"], err.message, "darkred", null)
+                })
+
+
 
     }
     run.mousePressed()
