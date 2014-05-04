@@ -441,7 +441,7 @@
 
             "captionRender"    : "@StringRender",
             "fontColor"        : "@palette.fontColor",
-            "selectedFontColor": "black",
+            "selectedFontColor": "steelblue",
             "font"             : "@font",
             "selectedFont"     : { "$Font": ["Arial", "bold", 14 ] }
         },
@@ -450,8 +450,8 @@
         "views"  : {
             "tab"    : { "$zebra.ui.TabBorder": 1 },
             "tabover": { "$zebra.ui.TabBorder": 2 },
-            "tabon"  : { "$zebra.ui.TabBorder": 0 },
-            "marker" : { "$Border": [ "#66CCFF", 1, 3 ] }
+            "tabon"  : { "$zebra.ui.TabBorder": 0 }
+
         },
         "sideOffset" : 6,
         "pageGaps"  : [2 , 2]

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <!--
         link to zebra library from zebra web site
@@ -7,25 +7,82 @@
     <script src='js/zebra.js'
             type='text/javascript'>
     </script>
+    <script src='js/jquery.min.js'
+            type='text/javascript'>
+    </script>
     <script src="js/bundle.js"></script>
     <script src="./conzole.js"></script>
+
     <style>
-        .canvas {
-            width: 100%;
+
+        #tsxt1 {
+
+            text-shadow: 0px 1px 0px #EEE;
+            outline: none;
+            background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DDD));
+            background: -moz-linear-gradient(top, #FFF, #DDD);
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            border: 1px solid #717171;
+            -webkit-box-shadow: 1px 1px 0px #EFEFEF;
+            -moz-box-shadow: 1px 1px 0px #efefef;
+            box-shadow: 1px 1px 0px #EFEFEF;
         }
+
+        #txt1 {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            background-color: #EAEAEA;
+            background: -moz-linear-gradient(top, #FFF, #EAEAEA);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #FFF), color-stop(1.0, #EAEAEA));
+            border: 1px solid #CACACA;
+            color: #444;
+            font-size: 1.4em;
+            margin: 0 0 25px;
+            padding: 5px 9px;
+            width: 260px;
+        }
+
+        #txt1:focus {
+            background: #FFF;
+            -webkit-box-shadow: 0 0 25px #CCC;
+            -moz-box-shadow: 0 0 25px #ccc;
+            box-shadow: 0 0 25px #CCC;
+            -webkit-transform: scale(1.008);
+            -moz-transform: scale(1.008);
+            transform: scale(1.008);
+
+        }
+
+
     </style>
     <script>
 
         //zebra.ui.configure("zebra/zebra.json");
+        $(document).ready(function () {
+            $('#title').text($('#title').text() + ' - ' + window.location.host)
+            //windwo.alert ('hi')
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.getSession().setMode("ace/mode/sql");
+        })
 
 
     </script>
 </head>
 
-<body style=" color: steelblue;background-image: url('');background-size: 100%;">
+<body style=" color: steelblue;background-color: white;">
+<div id="editor">
 
     <!--h2  align="center" style='font: "Arial; color: steelblue"'> conZole </h2> <hr/ -->
-    <canvas id="myCanvas" style="min-width:900px;max-height:800px;width:80%;margin-left:10%;margin-right:10%">
+    <h2 id="title"
+        style="font-family: Helvetica;font-size: 18;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">
+        crate ConZole</h2>
+    <textarea title="CTRL+ENTER to run query." id="txt1" rows="6"
+              style="font-family: Helvetica;font-size: 1.4em;font-style: bold;color: steelblue;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">select * from tweets limit 500
+    </textarea>
+    <canvas id="myCanvas" style="margin-top:0px;min-width:880px;height:500px;width:80%;margin-left:10%;margin-right:10%">
     </canvas>
     <p style="position:fixed;bottom: 4px; margin-left:10px"">Contributions: zebra.ui (github: barmalei/zebra),
     node-crate (github: megastef/node-crate.js) </p> </font>
