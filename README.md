@@ -4,7 +4,7 @@ crate-conZole
 An alternative SQL console for crate-data - made for interactive testing of [node-crate driver](https://github.com/megastef/node-crate)
 
 
-![](http://i57.tinypic.com/1zof9g2.png)
+![](https://seti123.aldebaran.uberspace.de/content/images/2014/May/Bildschirmfoto-2014-05-04-um-22-06-42.png)
 
 
 ## How to use

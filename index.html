@@ -38,10 +38,11 @@
             background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #FFF), color-stop(1.0, #EAEAEA));
             border: 1px solid #CACACA;
             color: #444;
-            font-size: 1.4em;
+            font-size: 1.2em;
             margin: 0 0 25px;
             padding: 5px 9px;
             width: 260px;
+            color: grey;
         }
 
         #txt1:focus {
@@ -52,6 +53,8 @@
             -webkit-transform: scale(1.008);
             -moz-transform: scale(1.008);
             transform: scale(1.008);
+            color: steelblue;
+            font-size: 1.3em;
 
         }
 
@@ -70,15 +73,15 @@
     </script>
 </head>
 
-<body style=" color: steelblue;background-color: white;">
+<body style=" color: grey;background-color: white;">
 <div id="editor">
 
     <!--h2  align="center" style='font: "Arial; color: steelblue"'> conZole </h2> <hr/ -->
     <h2 id="title"
         style="font-family: Helvetica;font-size: 18;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">
         crate ConZole</h2>
-    <textarea title="CTRL+ENTER to run query." id="txt1" rows="6"
-              style="font-family: Helvetica;font-size: 1.4em;font-style: bold;color: steelblue;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">select * from tweets limit 500
+    <textarea title="CTRL+ENTER to run query." id="txt1" rows="5"
+              style="font-family: Helvetica;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">select * from tweets limit 500
     </textarea>
     <canvas id="myCanvas" style="margin-top:0px;min-width:880px;height:500px;width:80%;margin-left:10%;margin-right:10%">
     </canvas>
