@@ -14,7 +14,7 @@ Change directory to your CRATE install dir
 bin/plugin install  megastef/crate-conZole
 ```
 
-Now you can access it in your browser (pls. note the textfield might behave strange on Safari, best results with Firefox and Chrome)
+Now you can access it in your browser (TextArea is now HTML based, in that way it is possible to use in future codemirror or ace editor functions)
 
 ```
 http://localhost:4200/_plugin/crate-conZole/
