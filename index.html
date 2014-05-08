@@ -13,17 +13,24 @@
     <script src="js/bundle.js"></script>
     <script src="./conzole.js"></script>
     <script src="./bower_components/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="./bower_components/ace-builds/src-noconflict/theme-chrome.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./bower_components/ace-builds/src-noconflict/theme-chrome.js" type="text/javascript"
+            charset="utf-8"></script>
 
-    <script src="./bower_components/ace-builds/src-noconflict/mode-sql.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./bower_components/ace-builds/src-noconflict/mode-sql.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="./bower_components/ace-builds/src-noconflict/ext-settings_menu.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="./bower_components/ace-builds/src-noconflict/ext-keybinding_menu.js" type="text/javascript"
+            charset="utf-8"></script>
+
     <style>
 
-        #tsxt1 {
+        #txt1 {
 
-            text-shadow: 0px 1px 0px #EEE;
+
             outline: none;
-            background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#DDD));
-            background: -moz-linear-gradient(top, #FFF, #DDD);
+
+
             -webkit-border-radius: 3px;
             -moz-border-radius: 3px;
             border-radius: 3px;
@@ -31,34 +38,6 @@
             -webkit-box-shadow: 1px 1px 0px #EFEFEF;
             -moz-box-shadow: 1px 1px 0px #efefef;
             box-shadow: 1px 1px 0px #EFEFEF;
-        }
-
-        #twxt1 {
-            -moz-border-radius: 5px;
-            -webkit-border-radius: 5px;
-            background-color: #EAEAEA;
-            background: -moz-linear-gradient(top, #FFF, #EAEAEA);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #FFF), color-stop(1.0, #EAEAEA));
-            border: 1px solid #CACACA;
-            color: #444;
-
-            margin: 0 0 25px;
-            padding: 5px 9px;
-            width: 260px;
-            color: grey;
-        }
-
-        #twxt1:focus {
-            background: #FFF;
-            -webkit-box-shadow: 0 0 25px #CCC;
-            -moz-box-shadow: 0 0 25px #ccc;
-            box-shadow: 0 0 25px #CCC;
-            -webkit-transform: scale(1.008);
-            -moz-transform: scale(1.008);
-            transform: scale(1.008);
-            color: steelblue;
-
-
         }
 
         #editdsdor {
@@ -76,10 +55,23 @@
         //zebra.ui.configure("zebra/zebra.json");
         $(document).ready(function () {
             $('#title').text($('#title').text() + ' - ' + window.location.host)
-            //windwo.alert ('hi')
             var editor = ace.edit("txt1");
+            editor.setKeyboardHandler('vim');
+            ace.require('ace/ext/settings_menu').init(editor);
+            //ace.require('ace/ext/modelist').init(editor)
+            ace.require("ace/ext/keybinding_menu").init(editor)
+            editor.commands.addCommands([
+                {
+                    name: "showSettingsMenu",
+                    bindKey: {mac: "Ctrl-m", win: "Command-m"},
+                    exec: function (editor) {
+                        editor.showSettingsMenu();
+                    },
+                    readOnly: true
+                }
+            ]);
             window.editor = editor;
-            //editor.setTheme("ace/theme/chrome");
+            editor.setTheme("ace/theme/chrome");
             editor.getSession().setMode("ace/mode/sql");
         })
 
@@ -89,16 +81,17 @@
 
 <body style=" color: grey;background-color: white;">
 
-    <!--h2  align="center" style='font: "Arial; color: steelblue"'> conZole </h2> <hr/ -->
-    <h2 id="title"
-        style="font-family: Helvetica;font-size: 18;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">
-        crate ConZole</h2>
-    <div title="CTRL+ENTER to run query." id="txt1" rows="5"
-              style="min-width:900px;height:160px;margin-left:10%;margin-right:10%">select * from tweets limit 500
-    </div>
-    <canvas id="myCanvas" style="margin-top:0px;min-width:880px;height:500px;width:80%;margin-left:10%;margin-right:10%">
-    </canvas>
-    <p style="position:fixed;bottom: 4px; margin-left:10px"">Contributions: zebra.ui (github: barmalei/zebra),
+<!--h2  align="center" style='font: "Arial; color: steelblue"'> conZole </h2> <hr/ -->
+<h2 id="title"
+    style="font-family: Helvetica;font-size: 18;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">
+    crate ConZole</h2>
+
+<div title="CTRL+ENTER to run query. CTRL+M show options menu. CMD+F search" id="txt1" rows="5"
+     style="min-width:900px;width:80%;height:200px;margin-left:10%;margin-bottom:10px;margin-right:10%;">select * from tweets limit 500
+</div>
+<canvas id="myCanvas" style="margin-top:0px;min-width:880px;height:500px;width:80%;margin-left:10%;margin-right:10%;">
+</canvas>
+<p style=";width:80%;margin-left:10%;">Contributions: zebra.ui (github: barmalei/zebra),
     node-crate (github: megastef/node-crate.js) </p> </font>
 
 </body>

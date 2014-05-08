@@ -8,18 +8,91 @@ var createApp = function (root) {
     historyCombo.bind(function (combo, value) {
         if (value && value > -1) {
             //console.log (historyCombo.getValue().view.target);
-            setSqlText( historyCombo.getValue().view.target +'');
+            setSqlText(historyCombo.getValue().view.target + '');
             run.mousePressed()
         }
     });
+    var tabs = new zebra.ui.Tabs();
+    var keymap = {
+        112: function () {
+            window.editor.focus()
+        },  // MAC fn+1
+        113: function () {
+            //window.alert('F2')
+            tabs.select(0)
+        },
+        114: function () {
+            tabs.select(1)
+        },
+        115: function () {
+            historyCombo.requestFocus()
+        },
+        // ace has differnt names
+        'f1': function () {
+            window.editor.focus()
+        },  // MAC fn+1
+        'f2': function () {
+            //window.alert('F2')
+            tabs.select(0)
+        },
+        'f3': function () {
+            tabs.select(1)
+        },
+        'f4': function () {
+            historyCombo.requestFocus()
+        }
+    }
 
-    $(document).bind('keydown', function(e){
-        if (e.ctrlKey && e.keyCode == 13)
-        {
+    var handleKeys = function (e) {
+        if (e.shiftKey && e.keyCode == 13) {
             run.mousePressed()
+
+        }
+        console.log(e.keyCode)
+        if (keymap[e.keyCode]) {
+            //alert(e.keyCode)
+            keymap[e.keyCode].apply(this)
         }
 
+    }
+    $(myCanvas).bind('keydown', handleKeys);
+    var self = this;
+    // todo, separate keymaps
+    var commands = Object.keys(keymap).map(function (i) {
+        var command = {
+            name: "switchUiTo" + i,
+            bindKey: {mac: '' + i, win: '' + i},
+            exec: function () {
+                window.editor.blur();
+                $(myCanvas).focus();
+                keymap[i].apply(self)
+            },
+            readOnly: true
+        }
+        //console.log (command)
+        return command;
+    })
+    // this command works still
+    commands.push({
+        name: "runSql",
+        bindKey: {mac: "Shift-Enter", win: "Shift-Enter"},
+        exec: function (editor) {
+            run.mousePressed()
+        },
+        readOnly: true
     });
+
+    window.editor.commands.addCommand({
+        name: "showKeyboardShortcuts",
+        bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
+        exec: function (editor) {
+            ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                module.init(editor);
+                editor.showKeyboardShortcuts()
+            })
+        }
+    })
+    window.editor.commands.addCommands(commands);
 
 
     var run = new zebra.ui.Button('Run');
@@ -44,7 +117,7 @@ var createApp = function (root) {
     var scrollPan = new zebra.ui.ScrollPan(grid);
     scrollPan.setSize(900, 500)
     var details = new zebra.ui.Panel(new zebra.layout.BorderLayout(4))
-    var tabs = new zebra.ui.Tabs();
+
     tabs.add("List", scrollPan);
 
     var gui = new zebra.ui.Panel().properties({
@@ -55,9 +128,9 @@ var createApp = function (root) {
                 layout: new zebra.layout.BorderLayout(8),
                 kids: {
                     /*TOP: new zebra.ui.Label("").properties({
-                        font: new zebra.ui.Font("2em Futura, Helvetica, sans-serif"),
-                        color: "steelblue"
-                    }), */
+                     font: new zebra.ui.Font("2em Futura, Helvetica, sans-serif"),
+                     color: "steelblue"
+                     }), */
                     //CENTER: txt,
                     TOP: new zebra.ui.Panel().properties({
                         layout: new zebra.layout.BorderLayout(8),
@@ -77,13 +150,14 @@ var createApp = function (root) {
             })
         }})
 
+
     function updateUI(gridModel, headerModel, status, statusColor, historyEntry) {
         try {
             hm = headerModel;
             m = gridModel;
             var sql = getSqlText();
             scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
-
+            scrollPan.removeAll()
             grid.removeAll()
             grid.setModel([])
             //grid.setVisible(true)
@@ -134,13 +208,11 @@ var createApp = function (root) {
 
     }
 
-    function getSqlText ()
-    {
+    function getSqlText() {
         return window.editor.getSession().getValue();
     }
 
-    function setSqlText (sql)
-    {
+    function setSqlText(sql) {
         return window.editor.getSession().setValue(sql);
     }
 
@@ -216,7 +288,7 @@ var createApp = function (root) {
                     ], res.cols || ['count'],
                         res.rowcount + " Records selected in " + res.duration + " ms" + ' - Fields: ' + (res.cols || ''),
                     "steelblue",
-                   sql.toString())
+                    sql.toString())
             })
             .error(function (err) {
                 updateUI([
