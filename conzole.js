@@ -29,6 +29,7 @@ var createApp = function (root) {
         },
         // ace has differnt names
         'f1': function () {
+            taps.requestFocus()
             window.editor.focus()
         },  // MAC fn+1
         'f2': function () {
@@ -82,7 +83,7 @@ var createApp = function (root) {
         readOnly: true
     });
 
-    window.editor.commands.addCommand({
+    commands.push({
         name: "showKeyboardShortcuts",
         bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
         exec: function (editor) {
