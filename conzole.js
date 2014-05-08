@@ -8,7 +8,7 @@ var createApp = function (root) {
     historyCombo.bind(function (combo, value) {
         if (value && value > -1) {
             //console.log (historyCombo.getValue().view.target);
-            $('#txt1').val( historyCombo.getValue().view.target +'');
+            setSqlText( historyCombo.getValue().view.target +'');
             run.mousePressed()
         }
     });
@@ -81,7 +81,7 @@ var createApp = function (root) {
         try {
             hm = headerModel;
             m = gridModel;
-            var sql = $('#txt1').val();
+            var sql = getSqlText();
             scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
 
             grid.removeAll()
@@ -134,6 +134,16 @@ var createApp = function (root) {
 
     }
 
+    function getSqlText ()
+    {
+        return window.editor.getSession().getValue();
+    }
+
+    function setSqlText (sql)
+    {
+        return window.editor.getSession().setValue(sql);
+    }
+
     var detailsInit = false;
     var dp = null;
 
@@ -177,7 +187,7 @@ var createApp = function (root) {
     run.mousePressed = function (e) {
         scrollPan.setBackground(new zebra.ui.Gradient("#DDDDDD", "#FFFFFF"))
         //grid.setVisible(false);
-        var sql = $('#txt1').val();
+        var sql = getSqlText();
         crate.execute(sql.toString())
             .success(function (res) {
                 if (res.rowcount == 0) {
