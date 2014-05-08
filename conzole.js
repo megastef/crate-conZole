@@ -3,7 +3,16 @@ var createApp = function (root) {
     var crate = require('node-crate');
     crate.connect(window.location.host, window.location.port);
     var font = new zebra.ui.Font("Arial", "bold", 18);
-    var history = ['select  * from tweets limit 500']
+    //if (!localStorage)
+    //    localStroage = {} // not html5??
+    var historyHashMap = {};
+    var history = [];
+    if (window.localStorage.history) {
+        history = JSON.parse(window.localStorage.getItem('history'))
+        console.log('history:' + history)
+        historyHashMap = JSON.parse(window.localStorage.historyHashMap)
+    }
+
     var historyCombo = new zebra.ui.Combo(history);
     historyCombo.bind(function (combo, value) {
         if (value && value > -1) {
@@ -117,7 +126,7 @@ var createApp = function (root) {
 
     var scrollPan = new zebra.ui.ScrollPan(grid);
     scrollPan.setSize(900, 500)
-    var details = new zebra.ui.Panel(new zebra.layout.BorderLayout(4))
+    var details = new zebra.ui.Panel(new zebra.layout.BorderLayout(0))
 
     tabs.add("List", scrollPan);
 
@@ -128,11 +137,7 @@ var createApp = function (root) {
             TOP: new zebra.ui.Panel().properties({
                 layout: new zebra.layout.BorderLayout(8),
                 kids: {
-                    /*TOP: new zebra.ui.Label("").properties({
-                     font: new zebra.ui.Font("2em Futura, Helvetica, sans-serif"),
-                     color: "steelblue"
-                     }), */
-                    //CENTER: txt,
+
                     TOP: new zebra.ui.Panel().properties({
                         layout: new zebra.layout.BorderLayout(8),
                         kids: {
@@ -143,7 +148,7 @@ var createApp = function (root) {
                 }
             }),
             CENTER: tabs,
-            BOTTOM: new zebra.ui.Panel(new zebra.layout.BorderLayout(8)).properties({
+            BOTTOM: new zebra.ui.Panel(new zebra.layout.BorderLayout(0)).properties({
                 kids: {
                     TOP: errTxt
                     //BOTTOM: details
@@ -158,7 +163,7 @@ var createApp = function (root) {
             m = gridModel;
             var sql = getSqlText();
             scrollPan.setBackground(new zebra.ui.Gradient('white', "#EEEEEE"))
-            scrollPan.removeAll()
+            //scrollPan.removeAll()
             grid.removeAll()
             grid.setModel([])
             //grid.setVisible(true)
@@ -184,15 +189,26 @@ var createApp = function (root) {
             }
 
             grid.add(zebra.layout.TOP, header)
-            scrollPan.add(zebra.layout.CENTER, grid);
+            //scrollPan.add(zebra.layout.CENTER, grid);
 
 
             errTxt.setValue(status)
             errTxt.setColor(statusColor)
             if (historyEntry) {
-                if (history.length > 15)
-                    history.shift();
-                history.push(sql.toString());
+
+                if (!historyHashMap[sql.toString()]) {
+                    historyHashMap[sql.toString()] = true;
+                    history.push(sql.toString());
+                    if (history.length > 15) {
+                        historyHashMap [ history.shift() ] = false;
+                    }
+
+                }
+                if (window.localStorage) {
+                    window.localStorage.historyHashMap = JSON.stringify(historyHashMap);
+                    window.localStorage.history = JSON.stringify(history);
+                }
+
                 var l = new zebra.ui.CompList(history)
                 l.select(history.length - 1)
                 historyCombo.setList(l);
@@ -299,7 +315,7 @@ var createApp = function (root) {
 
 
     }
-    run.mousePressed()
+    //run.mousePressed()
     return gui;
 
 }
