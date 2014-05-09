@@ -250,7 +250,7 @@
         },
 
         "border": {
-            "focuson"  : { "$Border" : [ "#66CCFF", 2, 3 ] },
+            "focuson"  : { "$Border" : [ "steelblue", 2, 3 ] },
             "focusoff" : { "$Border" : [ "#C5C5C5", 1, 3 ] }
         },
 
@@ -446,26 +446,26 @@
             "selectedFont"     : { "$Font": ["Arial", "bold", 14 ] }
         },
 
-        "border" : {  "$zebra.ui.TitledBorder": {"$Border": ["gray",1, 6] } },
+        "border" : {  "$zebra.ui.TitledBorder": {"$Border": ["gray",2,6] } },
         "views"  : {
             "tab"    : { "$zebra.ui.TabBorder": 1 },
-            "tabover": { "$zebra.ui.TabBorder": 2 },
+            "tabover": { "$zebra.ui.TabBorder": 0 },
             "tabon"  : { "$zebra.ui.TabBorder": 0 }
 
         },
-        "sideOffset" : 6,
-        "pageGaps"  : [2 , 2]
+        "sideOffset" : 12,
+        "pageGaps"  : [10 , 10]
     },
 
     "BaseList": {
         "views" :  {
-            "select"    :  "rgb(228,244,252)",
+            "select"    :  "#EEEEEE",
             "top.marker": { "$Border": [ "#0081C4", 1, 4 ] },
             "marker"    : "#DEF1FF"
         },
 
         "border" : {
-            "focuson"  :  { "$Border": [ "#66CCFF", 3, 4 ] },
+            "focuson"  :  { "$Border": [ "steelblue", 3, 4 ] },
             "focusoff" : "@borders.plain"
         },
 
@@ -531,7 +531,7 @@
 
         "padding"      : [ 0, 4, 0, 4 ],
         "border"       : {
-            "focuson" :  { "$Border" : [ "#66CCFF", 2, 8 ] },
+            "focuson" :  { "$Border" : [ "steelblue", 2, 8 ] },
             "focusoff":  { "$Border" : [ "#DDDDDD", 2, 8 ] }
         },
         "background"   : { "$Gradient": [ "rgb(250, 250, 250)", "rgb(234, 234, 234)"] },
@@ -725,8 +725,8 @@
         },
 
         "BaseGridCaption": {
-            "border": { "$Border":"gray" },
-            "background" : { "$Gradient": [ "white", "lightGray" ] }
+            "border": { "$Border": ["grey",2,6] },
+            "background" : { "$Gradient": [ "#DDD", "#FFF" ] }
         },
 
         "CompGridCaption" :{
@@ -746,14 +746,14 @@
 
             "Link": {
                 "font"  : "bold 14px 'Lucida Grande', 'Lucida Sans', Arial, sans-serif",
-                "colors": [ "steelblue", "orange", "black", "blue", "gray" ]
+                "colors": [ "steelblue", "orange", "gray", "blue", "gray" ]
             }
         },
 
         "GridCaption" :{
             "$inherit" : [ "grid.BaseGridCaption" ],
 
-            "padding" : 4,
+            "padding" : 6,
             "font"     : "@boldFont",
             "fontColor": "steelblue"
         },
@@ -764,10 +764,11 @@
             },
 
             "views" : {
-                "onselection" :"#D0EAFF",
-                "offselection":"#ADC1D6"
+                "onselection" :"#DDDDDD",
+                "offselection":"white"
             },
-            "lineColor": "rgb(65, 131, 215)"
+            "lineColor": "rgb(65, 131, 215)",
+            "padding": 0
         }
     },
 

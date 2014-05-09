@@ -26,26 +26,35 @@
     <style>
 
         #txt1 {
-
-
-            outline: none;
-
-
-            -webkit-border-radius: 3px;
-            -moz-border-radius: 3px;
-            border-radius: 3px;
-            border: 1px solid #717171;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            border: 2px solid gray;
             -webkit-box-shadow: 1px 1px 0px #EFEFEF;
             -moz-box-shadow: 1px 1px 0px #efefef;
             box-shadow: 1px 1px 0px #EFEFEF;
+            min-width:900px;
+            width:80%;
+            height:200px;
+            margin-left:10%;
+            margin-bottom:10px;
+            margin-right:10%;
         }
 
-        #editdsdor {
-            position: absolute;
-            top: 60;
-            right: 10;
-            height: 150;
-            left: 10;
+        #txt1:focus {
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+            border: 2px solid steelblue;
+            -webkit-box-shadow: 1px 1px 0px #EFEFEF;
+            -moz-box-shadow: 1px 1px 0px #efefef;
+            box-shadow: 1px 1px 0px #EFEFEF;
+            min-width:900px;
+            width:80%;
+            height:200px;
+            margin-left:10%;
+            margin-bottom:10px;
+            margin-right:10%;
         }
 
 
@@ -73,6 +82,12 @@
             window.editor = editor;
             editor.setTheme("ace/theme/chrome");
             editor.getSession().setMode("ace/mode/sql");
+            editor.on ('focus', function(){
+                $('#txt1').css ('border','2px solid steelblue');
+            })
+            editor.on ('blur', function(){
+                $('#txt1').css ('border','2px solid gray');
+            })
         })
 
 
@@ -86,8 +101,7 @@
     style="font-family: Helvetica;font-size: 18;font-style: bold;border-radius:4px;min-width:900px;width:80%;margin-left:10%;margin-right:10%">
     crate ConZole</h2>
 
-<div title="CTRL+ENTER to run query. CTRL+M show options menu. CMD+F search" id="txt1" rows="5"
-     style="min-width:900px;width:80%;height:200px;margin-left:10%;margin-bottom:10px;margin-right:10%;">select * from tweets limit 500
+<div title="CTRL+ENTER to run query. CTRL+M show options menu. CMD+F search" id="txt1" rows="5">select * from tweets limit 500
 </div>
 <canvas id="myCanvas" style="margin-top:0px;min-width:880px;height:500px;width:80%;margin-left:10%;margin-right:10%;">
 </canvas>
