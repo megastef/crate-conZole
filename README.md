@@ -4,7 +4,7 @@ crate-conZole
 An alternative SQL console for crate-data - made for interactive testing of [node-crate driver](https://github.com/megastef/node-crate)
 Command history is stored in browser local storage.
 
-![](http://techblog.bigdata-analyst.de/content/images/2014/May/Bildschirmfoto-2014-05-08-um-17-40-31.png)
+![](http://techblog.bigdata-analyst.de/content/images/2014/May/Bildschirmfoto-2014-05-09-um-10-36-22.png)
 
 
 ## How to use
