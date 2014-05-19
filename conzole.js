@@ -296,7 +296,7 @@ var createApp = function (root) {
                     rows = res.rows.map(function (e, i) {
                         return e.map(function (x, i) {
 
-                            if (res.col_types && res.col_types[i] == crate.type.TIMESTAMP)
+                            if (res.col_types && res.col_types[i] == crate.types.TIMESTAMP)
                                 return new Date(x);
                             else  if (('' + x).search(/object/i) > -1)
                                 return JSON.stringify(x)
